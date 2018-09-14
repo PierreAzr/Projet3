@@ -1,0 +1,86 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Accueil
+{% endblock %}
+
+{% block home %}
+class="navbar home navbar-custom navbar-fixed-top"
+{% endblock %}
+
+{% block header %}
+<!-- Intro Header -->
+<header class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="brand-heading">Billet simple pour l'Alaska</h1>
+                    <p class="intro-text">Un livre publié et écrit par Jean Forteroche.</p>
+                    <a href="#about" class="btn btn-circle page-scroll">
+                        <i class="fa fa-angle-double-down animated"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock %}
+
+{% block content %}
+<section id="about">
+  <div class="container-fluid">
+    <div class="starter-template" style="padding-top: 100px;">
+      <div  class="row">
+        <section class="col-lg-offset-3 col-lg-6">
+            <div class="hello">
+              <h1 >Bienvenue</h1>
+              <img style="width:40%;" src="/theme/img/border2.png">
+            </div>
+           </section>
+         </div>
+          <div id="chap" class="row">
+          	<nav class="col-lg-2">
+                  <div class="panel">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><div class="inList">Liste des chapitres</div>
+                            <a class="inTitle" data-toggle="collapse" href="#collapseChap">Liste des chapitres
+                            </a>
+                      </h4>
+                    </div>
+                    <div id="collapseChap" class="panel-collapse collapse inList">
+                      <div class="panel-body chapList">
+                      {% for article in articles %}
+                          <ul>
+                            <li><a href="/single/{{article.id}}">Chapitre {{article.number}}</a></li>
+                          </ul>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+          	</nav>
+
+      <section class="col-lg-offset-1 col-lg-6">
+            <div class="panel">
+              <div class="panel-heading">
+                <h3 class="panel-title">Présentation</h3>
+              </div>
+              <div class="panel-body">
+                <p style="text-align:justify">Que signifie ce nom «Candide» :
+                  innocence de celui qui ne connait pas le mal ou illusion du naïf qui n'a pas fait l'expérience du monde ?
+                  Voltaire joue en 1759, après le tremblement de terre de Lisbonne, sur ce double sens.
+                  Il nous fait partager les épreuves fictives d'un jeune homme simple,
+                  confronté aux leurres de l'optimisme, mais qui n'entend pas désespérer et qui en vient à une sagesse finale,
+                  mesurée et mystérieuse. Candide n'en a pas fini de nous inviter au gai savoir et à la réflexion.</p>
+                <a href="/single/1">
+                  <h3 style="text-align:center">Commencer le recit</h3>
+                </a>
+              </div>
+            </div>
+        </section>
+      </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

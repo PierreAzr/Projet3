@@ -1,0 +1,89 @@
+{#Affiche les commantaires#}
+{% macro recursiveComment(comment, article) %}
+	{% import _self as macros %}
+			<div class="media thumbnail">
+					<h4 class="media-heading">{{comment.pseudo}}</h4>
+					</br>
+					<div class="media-body">
+							<p>{{comment.content}}</p>
+							<div style="text-align:right;">{{ comment.dateCrea|date('d-m-Y H:i:s') }}</div>
+							<hr/ style="width:50%">
+							<div class="buttonPosition">
+									{#Formulaire pour repondre est signaler un commantaire#}
+									{% if comment.lvl < 2 %}
+										{{ macros.formReponse(comment.id, article.id )}}
+									{% else %}
+										{{ macros.formSignal(comment.id, article.id )}}
+									{% endif %}
+							</div>
+							{% if comment.children|length %}
+								{% for child in comment.children %}
+										<div style="padding-left:3%; padding-right:3%">
+												{{ macros.recursiveComment(child, article) }}
+										</div>
+								{% endfor %}
+							{% endif %}
+					</div>
+			</div>
+{% endmacro %}
+
+{#Formulaire pour repondre est signaler un commantaire#}
+{% macro formReponse(com, art) %}
+		<div id="form{{com}}">
+				<form action="/single/com/" method="post">
+						<input type="hidden" name="idArticle" value="{{art}}" />
+						<input type="hidden" name="idResponse" value="{{com}}" />
+						<p>
+						  Votre pseudo :</br>
+						  <input class="InputPseudo com" type="text" name="pseudo" style="color: #00223D;"/>
+						</p>
+						<p>
+						  Votre commentaire :</br>
+						  <textarea class="TexareaCom com" name="content"></textarea>
+						</p>
+						<input class="btn btn-primary btn-sm" type="submit" value="Envoyer" />
+						<input class="btn btn-primary btn-sm" id="annuler{{com}}" type="button" value="annuler" onclick="enlever('{{com}}')"/>
+				</form>
+		</div>
+		{#On cache le formulaire#}
+	  <script type="text/javascript">
+	    document.getElementById("form{{com}}").style.display = "none";
+	  </script>
+		{#Bouton pour afficher le formulaire et pour signaler#}
+	  <p>
+	    <form id="btRepondre{{com}}" class="button" >
+	        <input  class="btn btn-primary btn-sm" id="repondre{{com}}" type="button" style="font-weight:bolder;" value="Repondre" onclick="afficher('{{com}}')"/>
+	    </form>
+	    <form  id="bts{{com}}" class="button" action="/single/{{art}}/sig/" method="post">
+	        <input type="hidden" name="signaler"  value="{{com}}"/>
+	        <input style="display:inline" class="btn btn-primary btn-sm"  id="signal{{com}}" type="submit" value="Signaler"/>
+	    </form>
+	  </p>
+{% endmacro %}
+
+{#Formulaire pour signaler (dernier niveau de commentaire)#}
+{% macro formSignal(com, art) %}
+	  <p>
+	    <form  class="button" action="/single/{{art}}/sig/" method="post">
+	        <input type="hidden" name="signaler" value="{{com}}" />
+	        <input class="btn btn-primary btn-sm" id="signal{{com}}" type="submit" value="Signaler"/>
+	    </form>
+	  </p>
+{% endmacro %}
+
+{#Formulaire pour un nouveau commentaire#}
+{% macro formNewCom(art) %}
+	  <form action="/single/com/" method="post">
+	      <input type="hidden" name="idArticle" value="{{art}}" />
+	      <input type="hidden" name="idResponse" value="NULL" />
+	      <p>
+	        Votre pseudo :</br>
+	        <input class="InputPseudo com" type="text" name="pseudo"/>
+	      </p>
+	      <p>
+	        Votre commentaire :</br>
+	        <textarea class="TexareaCom com" name="content" ></textarea>
+	      </p>
+	      <input class="btn btn-primary btn-sm" type="submit" value="Envoyer" />
+	  </form>
+{% endmacro %}

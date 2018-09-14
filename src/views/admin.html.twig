@@ -1,0 +1,130 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Administration{% endblock %}
+
+{% block session %}href="#current"{% endblock %}
+
+{% block content %}
+<section id="current">
+  <div class="container-fluid">
+    <div class="starter-template" style="padding-top: 100px;">
+      <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+          <div class="panel disconnection">
+            <div class="panel-heading">
+              <a href="/endSession/"><h3 class="panel-title">Déconnexion</h3></a>
+          </div>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-lg-offset-2 col-lg-8">
+            <div class="panel">
+              <div class="panel-heading">
+              <h3 class="panel-title">Liste des chapitres</h3>
+              </div>
+                <div class="panel-body responsive-table-line">
+                <table class="table">
+                    <thead>
+                      <tr>
+                           <th>Titre</th>
+                           <th>Modifier</th>
+                           <th style="text-align:left;" >Suprimer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <a style="text-align:center;" href="/admin/new/"><h3>Créer un nouveau texte</h3></a>
+                      </tr>
+                      {% for article in articles %}
+                      <tr>
+                          <td style="width:60%;"><a href="/single/{{article.id}}">{{article.title}}</a></td>
+                          <td class="test{{article.id}}" style="width:20%;">
+                              <form action="/admin/mod/" method="post">
+                                  <input type="hidden" name="article" value="{{article.id}}"/>
+                                  <input class="btn btn-primary  btn-sm" id="modif{{article.id}}" type="submit" value="modifier"/>
+                              </form>
+                          </td>
+                          <td style="width:20%; text-align:left;">
+                              <input class="btn btn-primary btn-sm" id="deleadArt{{article.id}}" type="button" value="suprimer" onclick="sureArt('{{article.id}}')"/>
+                              <div id="formArtDelead{{article.id}}">
+                                  <form action="/admin/delArt/" method="post">
+                                      <p>êtes vous sur ? :<p>
+                                      <input type="hidden" name="remove" value="{{article.id}}"/>
+                                      <input class="btn btn-primary btn-sm" id="annuler{{article.id}}" type="button" value="annuler" onclick="notArt('{{article.id}}')"/>
+                                      <input class="btn btn-primary  btn-danger btn-sm" type="submit" value="supprimer" />
+                                  </form>
+                              </div>
+                              <script type="text/javascript">
+                                  document.getElementById("formArtDelead{{article.id}}").style.display = "none";
+                              </script>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-2 col-lg-8">
+              <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Les cinq commentaires les plus signalés :</h3>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th>Contenu du commentaire</th>
+                          <th>Nombre de signalement:</th>
+                          <th>Remise à zero:</th>
+                          <th style="text-align:left;">Suprimer</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for commentary in comment %}
+                          {% if commentary.signalment >= 1 %}
+                        <tr>
+                           <td style="width:50%">{{commentary.content}}</td>
+                           <td style="width:10%;">{{commentary.signalment}}</td>
+                           <td style="width:20%;">
+                             <form action="/admin/sigCom/" method="post">
+                                 <input type="hidden" name="report" value="{{commentary.id}}"/>
+                                 <input class="btn btn-primary btn-sm" type="submit" value="Valide" />
+                               </form>
+                           </td>
+                           <td style="width:20%;text-align:left;">
+                          <input class="btn btn-primary btn-sm" id="deleadCom{{commentary.id}}" type="button" value="suprimer" onclick="sureCom('{{commentary.id}}')"/>
+                          </p>
+
+                          <div id="formComDelead{{commentary.id}}">
+                          <form action="/admin/delCom/" method="post">
+                              <p>êtes vous sur ? :<p>
+                              <input type="hidden" name="report" value="{{commentary.id}}"/>
+                              <input type="hidden" name="idResponse" value="{{commentary.idResponse}}"/>
+                              <input class="btn btn-primary btn-sm" id="annuler{{commentary.id}}" type="button" value="annuler" onclick="notCom('{{commentary.id}}')"/>
+                              <input class="btn btn-primary  btn-danger btn-sm" type="submit" value="supprimer" />
+                            </form>
+                          </div>
+                          <script type="text/javascript">
+                            document.getElementById("formComDelead{{commentary.id}}").style.display = "none";
+                          </script>
+                          </td>
+                          </tr>
+                          {% endif %}
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div><!-- fin Panel -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="/form.js"></script>
+{% endblock %}

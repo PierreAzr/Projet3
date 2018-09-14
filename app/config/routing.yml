@@ -1,0 +1,48 @@
+home:
+    path:     /
+    defaults: { _controller: 'HomeController::homeAction' }
+single:
+    path:     /single/{id}
+    defaults: { _controller: 'SingleController::singleAction' }
+singlecomment:
+    path:     /single/com/
+    defaults: { _controller: 'SingleController::commentaryAction' }
+singlesignaling:
+    path:     /single/{id}/sig/
+    defaults: { _controller: 'SingleController::signalingAction' }
+info:
+    path:     /info/
+    defaults: { _controller: 'HomeController::infoAction' }
+connect:
+    path:     /connect/
+    defaults: { _controller: 'HomeController::connectAction' }
+endSession:
+    path:     /endSession/
+    defaults: { _controller: 'HomeController::endSessionAction' }
+contact:
+    path:     /contact/
+    defaults: { _controller: 'ContactController::contactAction' }
+contactSend:
+    path:     /contactSend/
+    defaults: { _controller: 'ContactController::contactSendAction' }
+admin:
+    path:     /admin/
+    defaults: { _controller: 'AdminController::adminAction', admin: true }
+adminNew:
+    path:     /admin/new/
+    defaults: { _controller: 'AdminController::newAction', admin: true }
+adminNewArt:
+    path:     /admin/newArt/
+    defaults: { _controller: 'AdminController::newArtAction', admin: true }
+adminMod:
+    path:     /admin/mod/
+    defaults: { _controller: 'AdminController::modAction', admin: true }
+adminModArt:
+    path:     /admin/modArt/
+    defaults: { _controller: 'AdminController::modArtAction', admin: true }
+adminDeleadArt:
+    path:     /admin/delArt/
+    defaults: { _controller: 'AdminController::deleadArtAction', admin: true }
+adminDeleadCom:
+    path:     /admin/delCom/
+    defaults: { _controller: 'AdminController::deleadComAction', admin: true }

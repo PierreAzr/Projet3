@@ -1,0 +1,93 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Modification Texte{% endblock %}
+
+{% block session %}href="#current"{% endblock %}
+
+{% block content %}
+<section id="current">
+<div class="container-fluid">
+    <div class="starter-template" style="padding-top: 100px;">
+        <div class="row">
+            <div class="adminMod">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <div class="panel returnadmin">
+                        <div  class="panel-heading">
+                            <a href="/admin/"><h3 class="panel-title">Accueil Administration</h3></a>
+                        </div>
+                    </div>
+                </div>
+                <form action="/admin/modArt/" method="post">
+                    <input type="hidden" name="idArticle" value="{{article.id}}" />
+                    <div class="col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+                      <!-- Affiche les erreurs du formulaire -->
+                      {% if  error == 'yes' %}
+                      <div class="panel">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Erreur</h3>
+                          </div>
+                             <div class="panel-body">
+                                   <ul>
+                                      {% for error in errors %}
+                                            <li style="color:red;font-weight:bold">{{error}}</li>
+                                      {% endfor %}
+                                  </ul>
+                             </div>
+                        </div>
+                        {% endif %}
+                        <div class="panel" style="margin-left:auto; margin-right:auto;">
+                            <div class="panel-heading">
+                                  <h3 class="panel-title">Numéro du chapitre :</h3>
+                            </div>
+                            <div class="panel-body">
+                              <input type="text" name="number" style="color: #00223D; width:50px;" value="{{article.Number}}{{number}}">
+                                  <span>Les chapitres déja utilisé :
+                                      {% for article in articles %}
+                                          {{article.Number}},
+                                      {% endfor %}
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Titre :</h3>
+                            </div>
+                            <div class="panel-body">
+                                <textarea name="title">{{article.title}}{{title}}</textarea>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Contenu :</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="AdminContent">
+                                    <textarea style="height:500px" name="content">{{article.content}}{{content}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                    </div>
+                    <div class="col-sm-offset-4 col-sm-4">
+                      <input class="btn btn-primary btn-sm" type="submit" value="Publier" style="width:200px; font-weight:bolder;" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<section/>
+{% endblock %}
+
+{% block javascripts %}
+  <!-- On charge Tinymce -->
+  <script src="/theme/tinymce/js/tinymce/tinymce.min.js"></script>
+  <script>
+    tinymce.init({selector:'textarea',
+                  language : "fr_FR",
+                  forced_root_block : false //permet d'enlever la premiere balise <p>
+                  });
+  </script>
+{% endblock %}

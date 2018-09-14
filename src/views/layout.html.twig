@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+    <!-- Bootstrap Core CSS -->
+    <link href="/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/theme/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="/theme/css/grayscale.css" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+
+  {% block nav %}
+  <nav  {% block home %} class="navbar navbar-custom navbar-fixed-top"  {% endblock %} role="navigation">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  Menu <i class="fa fa-bars"></i>
+              </button>
+              <a class="navbar-brand page-scroll" href="/#page-top">
+                  <span class="light">Accueil</span>
+              </a>
+          </div>
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="page-scroll" {% block single %}href="/single/1#chap"{% endblock %}>Chapitre</a>
+                </li>
+                <li>
+                    <a class="page-scroll" {% block info %}href="/info/#info"{% endblock %}>Information</a>
+                </li>
+                <li>
+                    <a class="page-scroll" {% block contact %}href="/contact/#contact"{% endblock %}>Contact</a>
+                </li>
+                <li>
+                    <a class="page-scroll" {% block session %}href="/admin/"{% endblock %}>Administration</a>
+                </li>
+            </ul>
+          </div>
+      </div>
+  </nav>
+  {% endblock %}
+
+  {% block header %}{% endblock %}
+
+  {% block content %}{% endblock %}
+
+<!-- Footer -->
+  <footer>
+      <div class="container text-center">
+            <p style="font-size:1em">Copyright &copy; 2017, Mention legal </p>
+      </div>
+  </footer>
+
+  <!-- jQuery -->
+  <script src="/theme/vendor/jquery/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="/theme/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+  <!-- Theme JavaScript -->
+  <script src="/theme/js/grayscale.min.js"></script>
+
+  {% block javascripts %}{% endblock %}
+</body>
+
+</html>

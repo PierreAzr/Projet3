@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/theme/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="/theme/css/grayscale.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+            <div class="info">
+              {% if  comment == 'yes' %}
+                <h3>Le commentaire à bien était enregistré</h3>
+              {% elseif comment == 'no' %}
+                 <h3>Erreur le commentaire est vide</h3>
+              {% elseif comment == 'signal' %}
+                <h3>Le commentaire à bien était signalé</h3>
+              {% elseif comment == 'mail' %}
+                <h3>Le mail à bien était envoyé</h3>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- script javascript pour afficher la page 2000ms -->
+<script type="text/javascript">
+  setTimeout("location=('{{url}}');",2000);
+</script>
+</body>
+</html>

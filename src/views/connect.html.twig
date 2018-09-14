@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+{% block title %}Connexion{% endblock %}
+
+{% block session %}href="#current"{% endblock %}
+
+{% block content %}
+<section id="current">
+  <div class="container-fluid">
+    <div class="starter-template" style="padding-top: 100px;">
+      <div class="pass" class="row">
+        <div class=" col-lg-offset-4 col-lg-4">
+            <div style="text-align:center;">
+              <img style="width:60%;" src="/theme/img/border.png">
+            </div>
+           <div class="panel">
+             <div class="panel-heading">
+               <h3 class="panel-title"> Veuillez entrer le mot de passe :</h3>
+             </div>
+             <div class="panel-body">
+               <form action="/connect/" method="post">
+                   <p>
+                     <input style="color:#00223D; width:80%" type="password" name="password"/>
+                   </p>
+                   <p>
+                     <input class="btn btn-primary btn-sm" type="submit" value="Valider" />
+                   </p>
+               </form>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}

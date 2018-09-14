@@ -1,0 +1,95 @@
+
+{% extends "layout.html.twig" %}
+{% import "form.html.twig" as forms %}
+
+{% block title %}Chapitre{% endblock %}
+
+{% block single %}href="#current"{% endblock %}
+
+{% block content %}
+
+<div id="current">
+  <div class="container-fluid" id="chap" >
+    <div class="starter-template" style="padding-top: 100px;">
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-6" style="text-align:center;">
+          <img style="width:60%;" src="/theme/img/border.png">
+        </div>
+      </div>
+      <div class="row">
+      	<nav class="col-lg-2 col-md-12">
+              <div class="panel">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <div class="inList">Liste des chapitres</div>
+                    <a class="inTitle" data-toggle="collapse" href="#collapseChap">Liste des chapitres</a>
+                  </h4>
+                </div>
+                <div id="collapseChap" class="panel-collapse collapse inList">
+                  <div class="panel-body chapList">
+                  {% for article in articles %}
+                      <ul>
+                        <li><a href="/single/{{article.id}}">Chapitre {{article.number}}</a></li>
+                      </ul>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+      	</nav>
+
+      	<section class="col-lg-offset-1 col-lg-6 col-md-12">
+      		<div class="single">
+      			<div style="text-align:center;">
+      				<h1>Chapitre {{article.number}}</h1>
+      				<h2>{{article.title}}</h2>
+      			</div>
+      			<p id="article">{{article.content}}</p><br/>
+            <a class="page-scroll" href="#chap">Retour Chapitre</a>
+            <p style="text-align:right;">{{ article.dateArt|date('d-m-Y') }}</p>
+      		</div>
+      	</section>
+      </div>
+      <section class="row" id="com" style="padding-top:50px">
+      		<div class="col-lg-offset-4 col-lg-4">
+              <div style="text-align:center;">
+                <img style="width:60%;" src="/theme/img/border.png">
+              </div>
+      				<div class="comments">
+      				<h2>Commentaires</h2>
+      				<ul class="media-list">
+      					 {% for comment in article.comments %}
+                    {#si le commentaire n'a pas de parent #}
+      							{% if comment.parent is null %}
+                    {#appel de la fonction recursive pour afficher les commentaires parents et enfants#}
+                    {#forms imports de "form.html.twig#}
+      					   	{{ forms.recursiveComment(comment, article) }}
+      						{% endif %}
+      					 {% endfor %}
+                 <a class="page-scroll" href="#chap">Retour Chapitre</a>
+      				</ul>
+      				</div>
+      		</div>
+      </section>
+      <section class="row">
+      		<div class="col-lg-offset-4 col-lg-4">
+              <div style="text-align:center;">
+                <img style="width:60%;" src="/theme/img/border.png">
+              </div>
+      				<div class="comments">
+      						<h2>laisser un commentaire</h2>
+      						<div id="formulaire">
+                      {#Formulaire pour un nouveau commentaire#}
+                      {#forms imports de "form.html.twig#}
+      						 		{{ forms.formNewCom(article.id)}}
+      						</div>
+      				</div>
+      		</div>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="/form.js"></script>
+{% endblock %}
